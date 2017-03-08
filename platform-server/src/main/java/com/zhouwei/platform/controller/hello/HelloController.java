@@ -1,5 +1,6 @@
 package com.zhouwei.platform.controller.hello;
 
+import com.zhouwei.platform.bean.AppInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +14,8 @@ import javax.sql.DataSource;
 @Controller
 public class HelloController {
 
-//    @Autowired
-//    AppInfo appInfo;
+    @Autowired
+    AppInfo appInfo;
 
 //    @Autowired
 //    DataSource dataSource;
@@ -24,10 +25,10 @@ public class HelloController {
         return "hello, world! This com from spring!";
     }
 
-//    @RequestMapping("/appinfo")
-//    public @ResponseBody String appinfo(){
-//        return appInfo.toString();
-//    }
+    @RequestMapping("/appinfo")
+    public @ResponseBody String appinfo(){
+        return appInfo.toString();
+    }
 
 //    @RequestMapping("/dbinfo")
 //    public @ResponseBody String dbinfo() throws SQLException {
