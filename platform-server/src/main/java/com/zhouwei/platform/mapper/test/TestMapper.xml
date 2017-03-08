@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhouwei.platform.mapper.test.TestMapper" >
+
+    <select id="selectById" resultType="com.zhouwei.platform.bean.test.Test" parameterType="java.lang.String" >
+        select *
+        from t_test
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+</mapper>
