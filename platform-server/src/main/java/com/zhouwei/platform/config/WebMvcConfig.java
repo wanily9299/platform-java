@@ -1,11 +1,22 @@
 package com.zhouwei.platform.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zhouwei on 2017/3/8.
@@ -31,4 +42,23 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         configurer.enable();
     }
 
+
+    @Override
+    protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        StringHttpMessageConverter stringHttpMessageConverter = new StringHttpMessageConverter();
+        List<MediaType> supportedMediaTypes = new ArrayList<MediaType>();
+        MediaType mediaType = new MediaType("text","html", Charset.forName("utf-8"));
+        supportedMediaTypes.add(mediaType);
+        stringHttpMessageConverter.setSupportedMediaTypes(supportedMediaTypes);
+        converters.add(stringHttpMessageConverter);
+
+        ObjectMapper objectMapper = Jackson2ObjectMapperBuilder.json().build();
+        converters.add(new MappingJackson2HttpMessageConverter(objectMapper));
+    }
+
+
+    @Override
+    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/css/**").addResourceLocations("/static/css/");
+    }
 }
