@@ -40,6 +40,12 @@ public class TestController {
         return "test";
     }
 
+    @RequestMapping("default")
+    public String toTestDefaultHtml(){
+        log.debug("toTestDefaultHtml");
+        return "/html/test.html";
+    }
+
 
     @RequestMapping("transaction")
     @ResponseBody
