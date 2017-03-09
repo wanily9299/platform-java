@@ -20,8 +20,8 @@ import java.beans.PropertyVetoException;
  * Created by zhouwei on 2017/3/8.
  */
 @Configuration
-//@EnableTransactionManagement
-@MapperScan(basePackages = "com.zhouwei.platform.mapper")
+@EnableTransactionManagement
+@MapperScan(basePackages = "com.zhouwei.platform.mapper", sqlSessionFactoryRef = "sqlSessionFactory")
 public class MybatisConfig {
 
     @Value("${jdbc.url}")
@@ -67,10 +67,9 @@ public class MybatisConfig {
     }
 
 
-//    @Bean(name = "transactionManager")
-//    public PlatformTransactionManager txManager() throws PropertyVetoException {
-//        return new DataSourceTransactionManager(dataSource());
-//    }
-
+    @Bean(name = "transactionManager")
+    public PlatformTransactionManager txManager() throws PropertyVetoException {
+        return new DataSourceTransactionManager(dataSource());
+    }
 
 }

@@ -7,4 +7,6 @@ import com.zhouwei.platform.bean.test.Test;
  */
 public interface TestService {
     Test selectById(String id);
+
+    String testTransaction(String id);
 }

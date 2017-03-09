@@ -22,4 +22,12 @@ public class Test {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Test(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Test() {
+    }
 }

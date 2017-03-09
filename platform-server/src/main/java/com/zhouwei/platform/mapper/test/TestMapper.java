@@ -7,4 +7,6 @@ import com.zhouwei.platform.bean.test.Test;
  */
 public interface TestMapper {
     Test selectById(String id);
+
+    int insertTest(Test tb);
 }

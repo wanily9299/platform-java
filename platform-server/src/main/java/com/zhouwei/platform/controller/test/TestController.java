@@ -39,4 +39,13 @@ public class TestController {
         log.debug("in test html");
         return "test";
     }
+
+
+    @RequestMapping("transaction")
+    @ResponseBody
+    public String transaction(String id){
+        log.debug("test transaction");
+        return testService.testTransaction(id);
+    }
+
 }
