@@ -24,7 +24,7 @@ import java.util.List;
 @ComponentScan(basePackages = "com.zhouwei.platform")
 //@EnableWebMvc
 public class WebMvcConfig extends WebMvcConfigurationSupport {
-    @Bean
+    //@Bean
     public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         //前缀
@@ -36,11 +36,15 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     }
 
     @Override
+    protected void configureViewResolvers(ViewResolverRegistry registry) {
+        registry.viewResolver(viewResolver());
+    }
+
+    @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         // 开启默认转发
         configurer.enable();
     }
-
 
     @Override
     protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -55,7 +59,6 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         converters.add(new MappingJackson2HttpMessageConverter(objectMapper));
     }
 
-
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/css/**").addResourceLocations("/static/css/");
@@ -66,7 +69,6 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         registry.addViewController("/").setViewName("redirect:/test/html");//浏览器重定向到controller
         registry.addViewController("/index").setViewName("test");//根据viewResolver直接跳转到/html/test.html,不经过controller
     }
-
 
     @Override
     protected void addInterceptors(InterceptorRegistry registry) {
