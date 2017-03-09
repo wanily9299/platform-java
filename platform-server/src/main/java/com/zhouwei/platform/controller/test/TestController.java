@@ -45,7 +45,14 @@ public class TestController {
     @ResponseBody
     public String transaction(String id){
         log.debug("test transaction");
-        return testService.testTransaction(id);
+        return testService.saveTestTransaction(id);
+    }
+
+    @RequestMapping("notransaction")
+    @ResponseBody
+    public String notransaction(String id){
+        log.debug("test notransaction");
+        return testService.testNoTransaction(id);
     }
 
 }

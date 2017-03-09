@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by zhouwei on 2017/3/6.
@@ -32,9 +31,16 @@ public class TestServiceImpl implements TestService {
         return test;
     }
 
-    @Transactional
-    public String testTransaction(String id) {
+    //@Transactional
+    public String saveTestTransaction(String id) {
 
+        testMapper.insertTest(new Test(id,"test_"+id));
+        testMapper.insertTest(new Test(id,"test_"+id));
+
+        return id;
+    }
+
+    public String testNoTransaction(String id) {
         testMapper.insertTest(new Test(id,"test_"+id));
         testMapper.insertTest(new Test(id,"test_"+id));
 

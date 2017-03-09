@@ -1,0 +1,45 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                           http://www.springframework.org/schema/tx
+                           http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+                           http://www.springframework.org/schema/aop
+                           http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+
+    <!-- 启用事务 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="select*" read-only="true" propagation="SUPPORTS"/>
+            <tx:method name="list*" read-only="true" propagation="SUPPORTS"/>
+            <tx:method name="query*" read-only="true" propagation="SUPPORTS"/>
+            <tx:method name="get*" read-only="true" propagation="SUPPORTS"/>
+            <tx:method name="find*" read-only="true" propagation="SUPPORTS"/>
+            <tx:method name="count*" read-only="true" propagation="SUPPORTS"/>
+
+            <tx:method name="add*" read-only="false" propagation="REQUIRED" rollback-for="Throwable"/>
+            <tx:method name="del*" read-only="false" propagation="REQUIRED" rollback-for="Throwable"/>
+            <tx:method name="insert*" read-only="false" propagation="REQUIRED" rollback-for="Throwable"/>
+            <tx:method name="update*" read-only="false" propagation="REQUIRED" rollback-for="Throwable"/>
+            <tx:method name="delete*" read-only="false" propagation="REQUIRED" rollback-for="Throwable"/>
+            <tx:method name="save*" read-only="false" propagation="REQUIRED" rollback-for="Throwable"/>
+
+            <tx:method name="newTran*" read-only="false" propagation="REQUIRES_NEW" rollback-for="Throwable"/>
+            <tx:method name="xaTran*" read-only="false" propagation="REQUIRED" isolation="SERIALIZABLE"
+                       rollback-for="Throwable"/>
+
+            <tx:method name="*" propagation="SUPPORTS" read-only="true" />
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 事务切入点配置 -->
+    <aop:config proxy-target-class="true">
+        <aop:pointcut id="operation" expression="execution(* com.zhouwei.platform.service.*.*.*(..))" />
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="operation" />
+    </aop:config>
+
+</beans>
