@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Created by zhouwei on 2017/3/6.
  */
@@ -60,5 +62,13 @@ public class TestController {
         log.debug("test notransaction");
         return testService.testNoTransaction(id);
     }
+
+
+    @RequestMapping("ctx")
+    @ResponseBody
+    public String ctx(HttpServletRequest request){
+        return (String) request.getAttribute("ctx");
+    }
+
 
 }
