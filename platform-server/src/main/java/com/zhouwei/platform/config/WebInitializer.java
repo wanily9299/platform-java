@@ -14,7 +14,7 @@ import javax.servlet.ServletRegistration;
 public class WebInitializer implements WebApplicationInitializer {
     public void onStartup(javax.servlet.ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
-        ctx.register(WebConfig.class);
+        ctx.register(WebMvcConfig.class);
         ctx.setServletContext(servletContext);
         ServletRegistration.Dynamic servlet = servletContext.addServlet("dispatcher", new DispatcherServlet(ctx));
         servlet.addMapping("/");
